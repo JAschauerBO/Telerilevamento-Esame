@@ -7,5 +7,3 @@ The project uses the teaching resources from the [course repo](https://github.co
 ## Project idea
 
 The goal of the project is to develop an own R package that can be used to solve a geoecological problem with R.
-
-https://github.com/JAschauerBO/Telerilevamento-Esame
