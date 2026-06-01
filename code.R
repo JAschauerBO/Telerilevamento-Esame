@@ -7,4 +7,4 @@ setwd("C:/Users/jakob/Uni/Erasmus/Telerilevamento/Esame/Raw Data")
 
 # Import of raw tiffs
 
-source("import_raw_tiffs.R")
+source("../import_raw_tiffs.R")

@@ -1,6 +1,12 @@
 # Project
 
-## Introduction and Methods
+## Idea
+
+After a major rockfall there is usually just a deposit of rockfall debris. But there are many fossile rockfalls that are already covered by vegetation.
+My goal is to get an idea of how the vegetation is covering the debris.
+I'm comparing the NDVI images from the summers of 2018 and 2025.
+
+## Data handling
 
 ### Download of raw data
 
@@ -122,3 +128,30 @@ For NDVI (right) the value range is from 0 to 1 without a unit. And it doesn't s
 NDVI values from 0 to 0.2 indicate barren soil, whereas water, snow and clouds have negative values. Vegetation has values from 0.3 to 0.8. Healthy vegetation has higher values than stressed vegetation.
 
 In the image, an elongated area of very low NDVI can be observed in the center. This area contains almost only rockfall debris without vegetation. The surrounding areas have quite high NDVI values, indicating that theres a lot of healthy vegetation. Comparison with the natural colors image shows a dense forest there.
+
+## Multitemporal analysis
+
+Comparing the NDVI plots of 2018 and 2025 it becomes visible, that the NDVI changes in parts of the debris body.
+
+```r
+ndvi201809 <- im.ndvi(t201809, nir = 4, red = 3)
+ndvi202508 <- im.ndvi(t202508, nir = 4, red = 3)
+par(mfrow = c(1, 2)) # make 2 pictures side by side
+plot(ndvi201809)
+plot(ndvi202508)
+```
+
+![Comparison of 2018 and 2025](Images/ndvi20182025.png)
+
+It becomes even more visible when looking at a difference map. The NDVI difference can be calculated by substraction of the NDVI 2018 map from the NDVI 2025 map.
+
+$$
+\delta \mathrm{NDVI} = \mathrm{NDVI}\textsubscript{2025} - \mathrm{NDVI}\textsubscript{2018}
+$$
+
+```r
+d_ndvi20252018 <- ndvi202508 - ndvi201809
+plot(d_ndvi20252018)
+```
+
+![Difference map of the NDVIs](Images/d_ndvi20252018.png)
