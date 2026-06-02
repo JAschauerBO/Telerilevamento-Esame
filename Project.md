@@ -149,9 +149,16 @@ $$
 \delta \mathrm{NDVI} = \mathrm{NDVI}\textsubscript{2025} - \mathrm{NDVI}\textsubscript{2018}
 $$
 
+I'm using a palette that starts with red for the negative values (less/stressed vegetation), white around zero (similar state) and green for the positive values (more/healthier vegetation).
+
 ```r
+# use a red-white-green diverging palette (approximation of ggthemes' Red-Green-White Diverging)
+cols <- colorRampPalette(c("red", "white", "forestgreen"))(100)
 d_ndvi20252018 <- ndvi202508 - ndvi201809
-plot(d_ndvi20252018)
+plot(d_ndvi20252018, col = cols)
 ```
 
 ![Difference map of the NDVIs](Images/d_ndvi20252018.png)
+
+Here it becomes clearly visible that in the debris area the NDVI has increased. It seems to be stronger along the rim of that area. Also, the river network can clearly be observed.
+In the steeper parts of the slopes, in some areas the NDVI has decreased a lot. This can be the case after erosional processes.
