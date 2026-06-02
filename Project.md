@@ -162,3 +162,50 @@ plot(d_ndvi20252018, col = cols)
 
 Here it becomes clearly visible that in the debris area the NDVI has increased. It seems to be stronger along the rim of that area. Also, the river network can clearly be observed.
 In the steeper parts of the slopes, in some areas the NDVI has decreased a lot. This can be the case after erosional processes.
+
+### Quantification
+
+To quantify the differences of the NDVI of the different years, the first step is to crop the raster to a Region of Interest (ROI). In this case the ROI is the debris body. The package `terra` allows cropping with the functions `mask()` and `crop()`. The latter crops the raster to the rectangular extent of the ROI. `mask()` then sets all pixels ouside the ROI to _NA_. The ROI can be imported as a `.geojson` file. This is very nice, as its possible to create these files directly on the [Copernicus Data Browser](https://browser.dataspace.copernicus.eu).
+In this case, the extent of the debris body has been manually picked and then saved to a `.geojson` file.
+
+![Export of geojson from Data Browser](Images/geojson.png)
+
+The `.geojson` file then has to be imported into R, which works also with a `terra` tool named `vect()`. The following script imports the `roi.geojson` file and saves it as a RDS object.
+
+```r
+library(terra)
+# set working directory to the correct folder:
+setwd("C:/Users/jakob/Uni/Erasmus/Telerilevamento/Esame/WD")
+# Check if roi.geojson exists:
+if (!file.exists("roi.geojson")) stop("roi.geojson not found")
+
+# Load necessary library:
+library(terra)
+
+# Load ROI from geojson file and save as RDS:
+roi <- vect("roi.geojson")
+saveRDS(roi, "roi.rds")
+# Assign ROI to global environment for use in other scripts:
+assign("roi", roi, envir = .GlobalEnv)
+# Success message:
+message("ROI loaded and saved in roi.rds")
+
+# reset working directory to main folder:
+setwd("C:/Users/jakob/Uni/Erasmus/Telerilevamento/Esame")
+```
+
+After importing, `roi` can be used to crop and mask. The values can be written into a new object:
+
+```r
+# mask and crop raster to roi
+roi_ndvi201809 <- mask(crop(ndvi201809, roi) , roi)
+
+# Extract the values from the raster and remove NA values:
+v_ndvi201809 <- values(roi_ndvi201809, na.rm = TRUE)
+
+# Some stats: 
+summary(v_ndvi201809)
+mean(v_ndvi201809)
+sd(v_ndvi201809)
+quantile(v_ndvi201809, probs = c(0.05, 0.25, 0.5, 0.75, 0.95), na.rm = TRUE)
+```
