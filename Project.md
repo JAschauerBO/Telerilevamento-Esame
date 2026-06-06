@@ -247,7 +247,7 @@ To find out, why that's the case, it's important to look at the spatial distribu
 ![NDVI values over the years](Images/ndvi_rasters_multiframe.png)
 
 Here it becomes visible, that in some parts the NDVI is increasing, while in some other parts it stays quite low. These areas are located along the main river channels, where erosion and resedimentation by the water is a lot more active than in the other parts. In these areas its very difficult for plants to grow.
-In addition to that, it becomes visible, that the NDVI is highest in the outer ("rim") part of the debris body. This is probably the case because the surrounding vegetation is very close, and because the debris body should be thin there. So probably some plants are growing through the debris, and some pioneer plants are likely migrating inward from the rim. 
+In addition to that, it becomes visible, that the NDVI is highest in the outer ("rim") part of the debris body. This is probably the case because the surrounding vegetation is very close, and because the debris body should be thin there. So probably some plants are growing through the debris, and some pioneer plants are likely migrating inward from the rim.
 
 In August 2023, a photo was taken, that shows the vegetation quite well:
 ![Photo of the vegetation in 2023](Images/Val_Bondasca_06.jpg)
@@ -260,3 +260,14 @@ The scripts above form the basis of the workflow and are the easiest way to expl
 These functions are a more technical layer of the project, so I would treat them as implementation details rather than the main narrative. In particular, they mirror the same tasks as the simple scripts: importing raw TIFF files, importing the ROI, calculating NDVI values, cropping the rasters, and creating plots.
 
 This way, the project remains easy to follow while still showing that the workflow was later formalized into reusable functions.
+
+Following functions are available in the package `rockfallveg`:
+
+- `rfv.import_tiff`: Imports tiffs from the specified directory into R and names the bands and stacks
+- `rfv.import_roi`: Imports the ROI from a geojson file
+- `rfv.ndvi`: Calculates the NDVI from all the rasters and saves them with the correct names
+- `rfv.crop`: Crops the NDVI rasters to the ROI and extracts the values into a Dataframe
+- `rfv.plot_RGB`: Plots the RGB map of the raster, falsecolor is also possible
+- `rfv.plot_map`: Plots multiple NDVI raster in a grid, to view the spatial change over time
+- `rfv.plot_box`: Plots a boxplot of the saved NDVI values from the Dataframe per year
+- `rfv.plot_violin`: Plots a violinplot of the saved NDVI values from the Dataframe per year
