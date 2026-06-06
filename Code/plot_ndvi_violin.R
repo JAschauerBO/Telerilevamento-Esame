@@ -22,14 +22,17 @@ if (length(all_dates) > 2) {
 
 ndvi_long$date_f <- factor(ndvi_long$date_label, levels = unique(ndvi_long$date_label))
 
-p <- ggplot(ndvi_long, aes(x = date_f, y = values)) +
-  geom_violin(width = 0.7, fill = "#4C78A8", alpha = 0.35, color = "#2F4B7C", trim = TRUE, adjust = 1.8, scale = "width") +
-  labs(x = "Date", y = "NDVI", title = "NDVI Violin (excluding first and last date)") +
+# Plot 1: normal violinplot, no widening
+p_normal <- ggplot(ndvi_normal, aes(x = date_f, y = values)) +
+  geom_violin(width = 0.9, fill = "#4C78A8", alpha = 0.35, color = "#2F4B7C", trim = TRUE, scale = "width") +
+  labs(x = "Date", y = "NDVI", title = "NDVI Violin Plot") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   coord_cartesian(ylim = c(0, 0.6))
 
-ggsave("../Images/ndvi_violin_simple.png", plot = p, width = 10, height = 5, dpi = 300)
-message("Saved Images/ndvi_violin_simple.png")
+plot(p_normal)
+ggsave("../Images/ndvi_violin.png", plot = p_normal, width = 10, height = 5, dpi = 300)
+
+message("Saved Images/ndvi_violin.png")
 
 setwd("../")

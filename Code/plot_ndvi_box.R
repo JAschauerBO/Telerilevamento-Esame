@@ -31,7 +31,7 @@ ndvi_plot <- ggplot(ndvi_long, aes(x = date_f, y = values, group = date_f)) +
     y = "NDVI",
     title = "NDVI Distribution by Date"
   ) +
-  coord_cartesian(ylim = c(0, 1)) +
+  coord_cartesian(ylim = c(0, 0.6)) +
   theme_classic(base_size = 12) +
   theme(
     panel.grid.minor = element_blank(),

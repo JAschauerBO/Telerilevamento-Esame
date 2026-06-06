@@ -15,6 +15,7 @@ For the import and processing, some packages were crucial:
 
 - `terra` for the import tools `rast()` and `vect()`
 - `imageRy` for the plot functions like `im.plotRGB()` and the dvi/ndvi functions `im.dvi()` and `im.ndvi()`
+- `ggplot2` for the plotting
 
 The packages were downloaded and loaded like this:
 
@@ -23,6 +24,8 @@ install.packages("terra")
 library(terra)
 install_github("ducciorocchini/imageRy")
 library(imageRy)
+install.packages("ggplot2")
+library(ggplot2)
 ```
 
 ## Data import
@@ -234,11 +237,12 @@ The resulting statistics can then be used for a quantitative comparison between 
 
 The more advanced script [ndvi_crop.R](Code/ndvi_crop.R) applies the same crop-and-mask workflow to all dates and combines the values in a dataframe. The rows correspond to pixel positions inside the cropped image, while the columns represent the different dates. This makes it possible to calculate and visualize distribution statistics across time.
 
-By plotting the NDVI values of the cropped rasters by year as boxplots or violinplots, some interpretations can be made.
+By plotting the NDVI values of the cropped rasters by year as boxplots or violinplots, some interpretations can be made. Note that the width of the violinplots is normalized, to enhance the visibility of the wider distributions.
 
-![NDVI values plotted as violins](Images/ndvi_violin_normal.png)
+![NDVI values plotted as violins](Images/ndvi_boxplot.png)
+![NDVI values plotted as violins](Images/ndvi_violin.png)
 
-It is clearly visible, that the NDVI values in the ROI increase over the years. This means that the vegetation is growing again. Looking at the violin plots, it can be observed that the value distribution is monovariant in the first years and then becomes bivariant in the last three years.
+It is clearly visible, that the mean NDVI values in the ROI increase over the years. This means that the vegetation is growing again. Looking at the violin plots, it can be observed that the value distribution is monovariant in the first years and then becomes bivariant in the last three years.
 
 ![Enhanced violin distribution](Images/ndvi_violin_wide_2023_2025.png)
 
@@ -271,3 +275,10 @@ Following functions are available in the package `rockfallveg`:
 - `rfv.plot_map`: Plots multiple NDVI raster in a grid, to view the spatial change over time
 - `rfv.plot_box`: Plots a boxplot of the saved NDVI values from the Dataframe per year
 - `rfv.plot_violin`: Plots a violinplot of the saved NDVI values from the Dataframe per year
+
+## Further investigation possibilities
+
+I have some other ideas for further possibilities to process the data and to verify the findings:
+
+- Correlation of NDVI in the ROI with a DEM: Switzerland provides high resolution DEMs for free on their [website](https://www.swisstopo.admin.ch/en/height-model-swissalti3d). A correlation of the DEM with the NDVI map in the ROI could show, that the NDVI is lower in the lower parts of the debris body. This would verify that the NDVI is indeed lower, where the river channels are, as those are lower than the banks in between.
+- Classification of the NDVI maps: trying to classify the raster maps could provide insights in the braided river development on the debris body

@@ -22,16 +22,6 @@ if (length(all_dates) > 2) {
 }
 ndvi_normal$date_f <- factor(ndvi_normal$date_label, levels = unique(ndvi_normal$date_label))
 
-# Plot 1: normal violinplot, no widening
-p_normal <- ggplot(ndvi_normal, aes(x = date_f, y = values)) +
-  geom_violin(width = 0.9, fill = "#4C78A8", alpha = 0.35, color = "#2F4B7C", trim = TRUE) +
-  labs(x = "Date", y = "NDVI", title = "NDVI Violin Plot (normal width)") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  coord_cartesian(ylim = c(0, 0.6))
-
-ggsave("../Images/ndvi_violin_normal.png", plot = p_normal, width = 10, height = 5, dpi = 300)
-
 # Plot 2: wide violinplot for 2023-2025 only
 ndvi_wide <- ndvi_long[ndvi_long$date_label %in% c("2023-08", "2024-08", "2025-08"), ]
 ndvi_wide$date_f <- factor(ndvi_wide$date_label, levels = c("2023-08", "2024-08", "2025-08"))
@@ -43,6 +33,7 @@ p_wide <- ggplot(ndvi_wide, aes(x = date_f, y = values)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   coord_cartesian(ylim = c(0, 0.6))
 
+plot(p_wide)
 ggsave("../Images/ndvi_violin_wide_2023_2025.png", plot = p_wide, width = 8, height = 5, dpi = 300)
 
 message("Saved Images/ndvi_violin_normal.png and Images/ndvi_violin_wide_2023_2025.png")
