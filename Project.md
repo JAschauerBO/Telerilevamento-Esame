@@ -9,6 +9,22 @@ The Bondo rockfall near Piz Cengalo in Switzerland is a great example. It happen
 For the analysis I compare NDVI images from the summers between 2018 and 2025.
 Also, I want to provide a reproducible way to do this for other locations.
 
+## Packages
+
+For the import and processing, some packages were crucial:
+
+- `terra` for the import tools `rast()` and `vect()`
+- `imageRy` for the plot functions like `im.plotRGB()` and the dvi/ndvi functions `im.dvi()` and `im.ndvi()`
+
+The packages were downloaded and loaded like this:
+
+```r
+install.packages("terra")
+library(terra)
+install_github("ducciorocchini/imageRy")
+library(imageRy)
+```
+
 ## Data import
 
 ### Download of the raw satellite raster data
@@ -217,6 +233,25 @@ The resulting statistics can then be used for a quantitative comparison between 
 ```
 
 The more advanced script [ndvi_crop.R](Code/ndvi_crop.R) applies the same crop-and-mask workflow to all dates and combines the values in a dataframe. The rows correspond to pixel positions inside the cropped image, while the columns represent the different dates. This makes it possible to calculate and visualize distribution statistics across time.
+
+By plotting the NDVI values of the cropped rasters by year as boxplots or violinplots, some interpretations can be made.
+
+![NDVI values plotted as violins](Images/ndvi_violin_normal.png)
+
+It is clearly visible, that the NDVI values in the ROI increase over the years. This means that the vegetation is growing again. Looking at the violin plots, it can be observed that the value distribution is monovariant in the first years and then becomes bivariant in the last three years.
+
+![Enhanced violin distribution](Images/ndvi_violin_wide_2023_2025.png)
+
+To find out, why that's the case, it's important to look at the spatial distribution of the values over the years again:
+
+![NDVI values over the years](Images/ndvi_rasters_multiframe.png)
+
+Here it becomes visible, that in some parts the NDVI is increasing, while in some other parts it stays quite low. These areas are located along the main river channels, where erosion and resedimentation by the water is a lot more active than in the other parts. In these areas its very difficult for plants to grow.
+In addition to that, it becomes visible, that the NDVI is highest in the outer ("rim") part of the debris body. This is probably the case because the surrounding vegetation is very close, and because the debris body should be thin there. So probably some plants are growing through the debris, and some pioneer plants are likely migrating inward from the rim. 
+
+In August 2023, a photo was taken, that shows the vegetation quite well:
+![Photo of the vegetation in 2023](Images/Val_Bondasca_06.jpg)
+(Published by Anidaat on [Wikimedia commons](https://commons.wikimedia.org/wiki/File:Val_Bondasca_06.jpg), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0))
 
 ## Functions of the package rockfallveg
 
