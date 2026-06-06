@@ -1,9 +1,9 @@
 # import_roi.R - script to import ROI from geojson file
 
 # set working directory to the correct folder:
-setwd("../WD")
+setwd("./WD")
 # Check if roi.geojson exists:
-if (!file.exists("roi.geojson")) stop("roi.geojson not found")
+if (!file.exists("roi.geojson")) stop("roi.geojson not found in ./WD")
 
 # Load necessary library:
 library(terra)

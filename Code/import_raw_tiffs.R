@@ -1,12 +1,7 @@
 library(terra)
 
-# Load ROI via separate script (creates roi.rds and assigns `roi`)
-#if (file.exists("import_roi.R")) {
-#source("import_roi.R")
-#}
-
 # Set working directory to the folder containing the raw tiff files:
-setwd("../WD/Raw Data")
+setwd("./WD/Raw Data")
 
 # Get list of subdirectories:
 dirs <- list.dirs(".", recursive = FALSE, full.names = TRUE) 
@@ -36,4 +31,4 @@ for (dir in dirs) { # Loop through each subdirectory
 }
 
 # reset working directory to main folder:
-setwd("../")
+setwd("../../")

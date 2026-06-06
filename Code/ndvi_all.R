@@ -1,7 +1,7 @@
 library(imageRy)
 
 # set working directory to the correct folder:
-setwd("../Code")
+setwd("./Code")
 
 # Load the already imported raster objects tYYYYMM
 # source("import_raw_tiffs.R")
