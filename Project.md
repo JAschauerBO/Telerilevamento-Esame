@@ -4,7 +4,10 @@
 
 After a major rockfall, the slope is usually covered by a deposit of rockfall debris. Over time, however, vegetation can recolonize these debris bodies. The aim of this project is to get an idea of how much vegetation covers the debris and how this changes over time.
 
-The Bondo rockfall near Piz Cengalo in Switzerland is a great example. It happened in August 2017. As Sentinel-2 L2A data is available since March 2017, it's a great opportunity to use this data.
+![Photo of the vegetation six years after rockfall](Images/Val_Bondasca_06.jpg)
+(Published by Anidaat on [Wikimedia commons](https://commons.wikimedia.org/wiki/File:Val_Bondasca_06.jpg), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0))
+
+The Bondo rockfall near Piz Cengalo in Switzerland is a great example. It happened in August 2017. The photo above shows the state in August 2023. As Sentinel-2 L2A data is available since March 2017, it's a great opportunity to use this data.
 
 For the analysis I compare NDVI images from the summers between 2018 and 2025.
 Also, I want to provide a reproducible way to do this for other locations.
@@ -87,7 +90,7 @@ The raster can cropped to a Region of Interest (ROI). In this project, the ROI i
 
 ![Export of geojson from Data Browser](Images/geojson.png)
 
-The following script imports `roi.geojson` and saves it as an RDS object.
+The following script imports `roi.geojson`.
 
 ```r
 library(terra)
@@ -95,9 +98,8 @@ setwd("C:/Users/jakob/Uni/Erasmus/Telerilevamento/Esame/WD")
 if (!file.exists("roi.geojson")) stop("roi.geojson not found")
 
 roi <- vect("roi.geojson")
-saveRDS(roi, "roi.rds")
 assign("roi", roi, envir = .GlobalEnv)
-message("ROI loaded and saved in roi.rds")
+message("ROI loaded as roi")
 
 setwd("C:/Users/jakob/Uni/Erasmus/Telerilevamento/Esame")
 ```
@@ -134,7 +136,7 @@ im.plotRGB(t201707, r = 4, g = 3, b = 2)
 
 ![False color image from July 2017](images/falsecolor_t201707.png)
 
-In this view, the shadow is still clearly visible because the reflected light is very low. The clouds also stand out, as they reflect almost all wavelengths. The red areas represent vegetation, because healthy plants reflect NIR very strongly.
+In this view, the shadow is still clearly visible because the reflected light is very low. The clouds also stand out, as they reflect almost all wavelengths. The red areas represent vegetation, because healthy plants reflect NIR very strongly. The little grey areas can be interpreted as areas with low vegetation, such as riverbeds.
 
 #### Visualization of the data as NDVI images
 
@@ -194,7 +196,7 @@ $$
 \delta \mathrm{NDVI} = \mathrm{NDVI}_{2025} - \mathrm{NDVI}_{2018}
 $$
 
-I used a red-white-green palette, where red represents negative values, white indicates values around zero, and green represents positive values.
+I used a red-white-green palette, where red represents negative (decreased) values, white indicates values around zero, and green represents positive (increased) values.
 
 ```r
 cols <- colorRampPalette(c("red", "white", "forestgreen"))(100)
@@ -281,4 +283,4 @@ Following functions are available in the package `rockfallveg`:
 I have some other ideas for further possibilities to process the data and to verify the findings:
 
 - Correlation of NDVI in the ROI with a DEM: Switzerland provides high resolution DEMs for free on their [website](https://www.swisstopo.admin.ch/en/height-model-swissalti3d). A correlation of the DEM with the NDVI map in the ROI could show, that the NDVI is lower in the lower parts of the debris body. This would verify that the NDVI is indeed lower, where the river channels are, as those are lower than the banks in between.
-- Classification of the NDVI maps: trying to classify the raster maps could provide insights in the braided river development on the debris body
+- Classification of the NDVI maps: trying to classify the NDVI raster maps could provide insights in the braided river development on the debris body.

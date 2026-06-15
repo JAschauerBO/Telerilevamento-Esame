@@ -18,7 +18,7 @@
 rfv.plot_box <- function(v_ndvi_df = NULL,
 												data_path = "WD/v_ndvi_df.rds",
 												series = NULL,
-							    				ylim = NULL,
+							    				ylim = c(0,0.6),
 												xlab = "Date",
 												ylab = "NDVI",
 												title = NULL,
