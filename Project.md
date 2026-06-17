@@ -261,7 +261,7 @@ In August 2023, a photo was taken, that shows the vegetation quite well:
 
 ## Functions of the package rockfallveg
 
-The scripts above form the basis of the workflow and are the easiest way to explain the project logic. Later, the same steps were bundled into package functions in the [Package](Package/) folder to make the workflow reusable and more structured.
+The scripts above form the basis of the workflow and are the easiest way to explain the project logic. Later, the same steps were bundled into package functions in the package [rockfallveg](https://github.com/JAschauerBO/rockfallveg/tree/main) to make the workflow reusable and more structured.
 
 These functions are a more technical layer of the project, so I would treat them as implementation details rather than the main narrative. In particular, they mirror the same tasks as the simple scripts: importing raw TIFF files, importing the ROI, calculating NDVI values, cropping the rasters, and creating plots.
 
@@ -269,14 +269,14 @@ This way, the project remains easy to follow while still showing that the workfl
 
 Following functions are available in the package `rockfallveg`:
 
-- `rfv.import_tiff`: Imports tiffs from the specified directory into R and names the bands and stacks
-- `rfv.import_roi`: Imports the ROI from a geojson file
-- `rfv.ndvi`: Calculates the NDVI from all the rasters and saves them with the correct names
-- `rfv.crop`: Crops the NDVI rasters to the ROI and extracts the values into a Dataframe
-- `rfv.plot_RGB`: Plots the RGB map of the raster, falsecolor is also possible
-- `rfv.plot_map`: Plots multiple NDVI raster in a grid, to view the spatial change over time
-- `rfv.plot_box`: Plots a boxplot of the saved NDVI values from the Dataframe per year
-- `rfv.plot_violin`: Plots a violinplot of the saved NDVI values from the Dataframe per year
+- `rfv.import_tiff()`: Imports tiffs from the specified directory into R and names the bands and stacks
+- `rfv.import_roi()`: Imports the ROI from a geojson file
+- `rfv.ndvi()`: Calculates the NDVI from all the rasters and saves them with the correct names
+- `rfv.crop()`: Crops the NDVI rasters to the ROI and extracts the values into a Dataframe
+- `rfv.plot_RGB()`: Plots the RGB map of the raster, falsecolor is also possible
+- `rfv.plot_map()`: Plots multiple NDVI raster in a grid, to view the spatial change over time
+- `rfv.plot_box()`: Plots a boxplot of the saved NDVI values from the Dataframe per year
+- `rfv.plot_violin()`: Plots a violinplot of the saved NDVI values from the Dataframe per year
 
 ## Further investigation possibilities
 

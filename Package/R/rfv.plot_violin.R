@@ -22,10 +22,10 @@ rfv.plot_violin <- function(v_ndvi_df = NULL,
                             xlab = "Date",
                             ylab = "NDVI",
                             title = NULL,
-                            scale = "area",
-                            show_points = TRUE,
+                            scale = "width",
+                            show_points = FALSE,
                             point_size = 0.5,
-                            palette = NULL,
+                            palette = "viridis",
                             save_plot = NULL) {
   if (is.null(v_ndvi_df)) {
     if (!file.exists(data_path)) stop("Data not found: ", data_path, call. = FALSE)
@@ -45,14 +45,17 @@ rfv.plot_violin <- function(v_ndvi_df = NULL,
 
   if (!requireNamespace("ggplot2", quietly = TRUE)) stop("ggplot2 required for plotting. Please install it.", call. = FALSE)
 
-  p <- ggplot2::ggplot(long, ggplot2::aes_string(x = "variable", y = "value", fill = "variable")) +
+  p <- ggplot2::ggplot(long, ggplot2::aes(x = variable, y = value, fill = variable)) +
     ggplot2::geom_violin(scale = scale, trim = TRUE)
 
   if (isTRUE(show_points)) {
     p <- p + ggplot2::geom_jitter(width = 0.2, size = point_size, alpha = 0.6)
   }
 
-  if (!is.null(palette) && requireNamespace("RColorBrewer", quietly = TRUE)) {
+  if (identical(palette, "viridis")) {
+    if (!requireNamespace("viridis", quietly = TRUE)) stop("viridis required for plotting. Please install it.", call. = FALSE)
+    p <- p + viridis::scale_fill_viridis(discrete = TRUE)
+  } else if (!is.null(palette) && requireNamespace("RColorBrewer", quietly = TRUE)) {
     p <- p + ggplot2::scale_fill_brewer(palette = palette)
   } else if (!is.null(palette)) {
     p <- p + ggplot2::scale_fill_manual(values = palette)

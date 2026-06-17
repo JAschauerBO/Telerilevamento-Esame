@@ -1,0 +1,15 @@
+Package: rockfallveg
+Type: Package
+Title: A Tool for Quantitative Multitemporal Analysis of NDVI Values and Change in Rockfall Debris Bodies
+Version: 0.1.0
+Authors@R: person("Jakob", "Aschauer", email = "jakob.aschauer@student.uibk.ac.at", role = c("aut", "cre"))
+Description: Functions for importing Sentinel-2 data, computing NDVI, cropping to a region of interest, and producing summary plots for multitemporal vegetation analysis.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    terra,
+    ggplot2,
+    viridis,
+    imageRy,
+    RColorBrewer

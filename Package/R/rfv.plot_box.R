@@ -23,7 +23,7 @@ rfv.plot_box <- function(v_ndvi_df = NULL,
 												ylab = "NDVI",
 												title = NULL,
 												notch = FALSE,
-												show_points = TRUE,
+												show_points = FALSE,
 												point_size = 0.5,
 												palette = NULL,
 												save_plot = NULL) {
@@ -45,7 +45,7 @@ rfv.plot_box <- function(v_ndvi_df = NULL,
 
 	if (!requireNamespace("ggplot2", quietly = TRUE)) stop("ggplot2 required for plotting. Please install it.", call. = FALSE)
 
-	p <- ggplot2::ggplot(long, ggplot2::aes_string(x = "variable", y = "value")) +
+	p <- ggplot2::ggplot(long, ggplot2::aes(x = variable, y = value)) +
 		ggplot2::geom_boxplot(notch = notch, outlier.shape = NA)
 
 	if (isTRUE(show_points)) {

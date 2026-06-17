@@ -28,7 +28,7 @@ rfv.plot_map <- function(ndvi_list = NULL,
                          nrow = NULL,
                          main = NULL,
                          labels = NULL,
-                         col_palette = terrain.colors(50),
+                         col_palette = grDevices::colorRampPalette(c("saddlebrown", "white", "forestgreen"))(100),
                          zlim = NULL,
                          add_roi_border = TRUE,
                          save_plot = NULL,
@@ -49,6 +49,12 @@ rfv.plot_map <- function(ndvi_list = NULL,
   plots <- lapply(series, function(s) ndvi_list[[s]])
   nplots <- length(plots)
   if (is.null(nrow)) nrow <- ceiling(nplots / ncol)
+
+  if (is.null(zlim)) {
+    global_min <- min(sapply(plots, function(r) min(terra::values(r), na.rm = TRUE)))
+    global_max <- max(sapply(plots, function(r) max(terra::values(r), na.rm = TRUE)))
+    zlim <- c(global_min, global_max)
+  }
 
   if (is.null(roi)) {
     roi_path <- file.path(output_dir, "roi.rds")
@@ -72,11 +78,7 @@ rfv.plot_map <- function(ndvi_list = NULL,
       plot.new(); title(main = paste(lbl, "(not a raster)")); next
     }
 
-    if (is.null(zlim)) {
-      terra::plot(r, col = col_palette, main = lbl)
-    } else {
-      terra::plot(r, col = col_palette, main = lbl, zlim = zlim)
-    }
+    terra::plot(r, col = col_palette, main = lbl, zlim = zlim)
 
     if (add_roi_border && !is.null(roi) && inherits(roi, "SpatVector")) {
       terra::plot(roi, add = TRUE, border = "red", lwd = 2)
