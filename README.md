@@ -7,6 +7,6 @@ The project uses the teaching resources from the [course repo](https://github.co
 ## Project idea
 
 The goal of the project is to develop an own R package that can be used to solve a geoecological problem with R.
-This project aims to quantify the NDVI change on rockfall debris masses. For further information look at Project.md
+This project aims to quantify the NDVI change on rockfall debris masses. For further information look at [Project.md](https://github.com/JAschauerBO/Telerilevamento-Esame/blob/main/Project.md).
 
 The developed package is called [rockfallveg](https://github.com/JAschauerBO/rockfallveg/tree/main).
