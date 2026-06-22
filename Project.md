@@ -67,18 +67,18 @@ The script [import_raw_tiffs.R](Code/import_raw_tiffs.R) loads the TIFF files in
 library(terra)
 
 setwd("C:/Users/jakob/Uni/Erasmus/Telerilevamento/Esame/Raw Data")
-dirs <- list.dirs(".", recursive = FALSE, full.names = TRUE)
+dirs <- list.dirs(".", recursive = FALSE, full.names = TRUE) # list of folders
 
-for (dir in dirs) {
-  dir_files <- list.files(dir, recursive = FALSE, full.names = TRUE, pattern = "\\.tiff$", ignore.case = TRUE)
-  for (file in dir_files) {
+for (dir in dirs) { # for every Folder
+  dir_files <- list.files(dir, recursive = FALSE, full.names = TRUE, pattern = "\\.tiff$", ignore.case = TRUE) # list of files
+  for (file in dir_files) { # for every File
     folder_name <- gsub("-", "", basename(dir))
     band_name <- tools::file_path_sans_ext(basename(file))
     var_name <- paste0("t", folder_name, "_", band_name)
-    assign(var_name, rast(file), envir = .GlobalEnv)
+    assign(var_name, rast(file), envir = .GlobalEnv) # assigns name for single band raster
   }
   var_name2 <- paste0("t", folder_name)
-  assign(var_name2, c(get(paste0("t", folder_name, "_B04")), get(paste0("t", folder_name, "_B03")), get(paste0("t", folder_name, "_B02")), get(paste0("t", folder_name, "_B08"))), envir = .GlobalEnv)
+  assign(var_name2, c(get(paste0("t", folder_name, "_B04")), get(paste0("t", folder_name, "_B03")), get(paste0("t", folder_name, "_B02")), get(paste0("t", folder_name, "_B08"))), envir = .GlobalEnv) # assigns name for multilayer raster
 }
 ```
 
